@@ -10,55 +10,68 @@ class CropToelie
   def initialize image_path
     @image  = ImageList.new(image_path).last
     @orig   = ImageList.new(image_path).last
-    @width  = 300
-    @height = 300
-    
+    @width  = 800
+    @height = 800
+
+#    @image = @image.quantize
+     @image = @image.posterize(5)
+#    @image = @image.edge(1) #aggressive egdes
+#    @image.display
+#    @image = @image.modulate(100,0,100) # grayscale
+#    @image.display
+#    @image = @image.black_threshold(15) # higher contrast
+#    @image.display
+
     smart_crop(@width, @height)
   end
   
   private
     def smart_crop(requested_x, requested_y)
-      x,y = @image.columns, @image.rows
-      offset_x, offset_y = 0, 0
-      offset_x2, offset_y2 = x, y
+      left, top = 0, 0
+      right, bottom = @image.columns, @image.rows
+      width, height = right, bottom
 
       # Slice from left and right edges until the correct width is reached.
-      while (x > requested_x) do
-        slice_width = [(x - requested_x), 10].min
+      while (width > requested_x) do
+        slice_width = [(width - requested_x), 30].min
 
-        left  = @image.crop(0, 0, slice_width, y, true)
-        right = @image.crop((x - slice_width), 0, slice_width, y, true)
+        left_entropy  = entropy_slice(@image, left, 0, slice_width, bottom)
+        right_entropy = entropy_slice(@image, (right - slice_width), 0, slice_width, bottom)
+
         #remove the slice with the least entropy
-        if entropy(left) < entropy(right)
-          offset_x += slice_width
-          @image.crop!(slice_width, 0, x - slice_width, y, true)
+        if left_entropy < right_entropy
+          #draw_entropy(@orig, left, 0, left + slice_width, bottom, left_entropy)
+          left += slice_width
         else
-          offset_x2 -= slice_width
-          @image.crop!(0, 0, (x - slice_width), y, true)
+          #draw_entropy(@orig, (right - slice_width), 0, right + slice_width, bottom, right_entropy)
+          right -= slice_width
         end
         
-        x = @image.columns
+        width = (right - left)
       end
 
       # Slice from top and bottom edges until the correct height is reached.
-      while (y > requested_y) do
-        slice_height = [(y - requested_y), 10].min
+      while (height > requested_y) do
+        slice_height = [(height - requested_y), 30].min
         
-        top    = @image.crop(0, 0, x, slice_height, true)
-        bottom = @image.crop(0, (y - slice_height), x, slice_height, true)
+        top_entropy    = entropy_slice(@image, 0, top, @image.columns, slice_height)
+        bottom_entropy = entropy_slice(@image, 0, (bottom - slice_height), @image.columns, slice_height)
+
         #remove the slice with the least entropy
-        if entropy(top) < entropy(bottom)
-          offset_y += slice_height
-          @image.crop!(0, slice_height, x, (y - slice_height), true)
+        if top_entropy < bottom_entropy
+          draw_entropy(@orig, 0, top, @image.columns, top + slice_height, top_entropy)
+          top += slice_height
         else
-          offset_y2 -= slice_height
-          @image.crop!(0, 0, x, (y - slice_height), true)
+          draw_entropy(@orig, 0, bottom - slice_height, @image.columns, bottom, bottom_entropy)
+          bottom -= slice_height
         end
         
-        y = @image.rows
+        height = (bottom - top)
       end
 
-      draw_rect(@orig, offset_x, offset_y, offset_x2, offset_y2)
+      draw_rect(@image, left, top, right, bottom)
+      draw_rect(@orig, left, top, right, bottom)
+      @image.display
       @orig.display
     end
 
@@ -82,10 +95,27 @@ class CropToelie
       return entropy * -1
     end
 
-    def draw_rect(img, x1, y1, x2, y2)
+    def draw_entropy(img, x1, y1, x2, y2, entropy) 
       gc = Magick::Draw.new
       gc.stroke('transparent')
       gc.fill('red')
+      
+      opacity = (entropy/ 10.0)
+      gc.fill_opacity(opacity)
+      gc.rectangle(x1, y1, x2, y2)
+      
+      gc.font_weight(Magick::NormalWeight)
+      gc.font_style(Magick::NormalStyle)
+      gc.fill('black')
+      gc.stroke('transparent')
+      gc.text(x1+10,y1+15, "'#{entropy}'")
+      gc.draw(img)
+    end
+    
+    def draw_rect(img, x1, y1, x2, y2)
+      gc = Magick::Draw.new
+      gc.stroke('transparent')
+      gc.fill('white')
       gc.fill_opacity(0.65)
       gc.rectangle(x1, y1, x2, y2)
       
