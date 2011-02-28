@@ -18,8 +18,6 @@ class CropToelie
     # Prepare some often-used internal variables.
     @rows = @image.rows
     @columns = @image.columns
-    
-    # @TODO throw a warning if should_crop? is false. 
   end
 
   # Crops an image to width x height
