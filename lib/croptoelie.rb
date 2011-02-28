@@ -5,9 +5,11 @@ class CropToelie
   attr_accessor :orig
   attr_accessor :step_size
   
-  def initialize(image_path)
-    @image  = ImageList.new(image_path).last
-    @orig   = ImageList.new(image_path).last
+  # Create a new CropToelie object from a ImageList single image object. 
+  #  If you want to provide a file by its path use CropToelie.from_file('/path/to/image.png'). 
+  def initialize(image)
+    @image = image
+    @orig = image
     
     # Hardcoded (but overridable) defaults.
     @step_size  = 10
@@ -18,6 +20,12 @@ class CropToelie
     # Prepare some often-used internal variables.
     @rows = @image.rows
     @columns = @image.columns
+  end
+  
+  # Open create a croptoelie from a file on disk.
+  def self.from_file(image_path)
+    image = ImageList.new(image_path).last
+    return CropToelie.new(image)
   end
 
   # Crops an image to width x height
