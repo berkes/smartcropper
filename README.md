@@ -1,6 +1,14 @@
 = croptoelie
 
-Description goes here.
+Content aware cropping.
+
+Crops images based on entropy: leaving the most interesting part intact.
+
+Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :).
+
+Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. It offers two methods, scanning and trimming: with scanning the whole image is placed in an array then evaluated: very slow and memory-gobbling. 
+
+The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.
 
 == Contributing to croptoelie
  
