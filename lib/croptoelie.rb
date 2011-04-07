@@ -172,6 +172,8 @@ class CropToelie
     end
     
     # Compute the entropy of an image, defined as -sum(p.*log2(p)).
+    #  Note: instead of log2, only available in ruby > 1.9, we use
+    #  log(p)/log(2). which has the same effect.
     def entropy(image_slice)
       hist = image_slice.color_histogram
       hist_size = hist.values.inject{|sum,x| sum ? sum + x : x }.to_f
@@ -179,7 +181,7 @@ class CropToelie
       entropy = 0
       hist.values.each do |h| 
         p = h.to_f / hist_size
-        entropy += (p * Math.log2(p)) if p != 0
+        entropy += (p * (Math.log(p)/Math.log(2))) if p != 0
       end
      
       return entropy * -1
