@@ -9,6 +9,7 @@ GEM
     rake (0.8.7)
     rcov (0.9.9)
     rmagick (2.13.1)
+    ruby-prof (0.10.2)
     shoulda (2.11.3)
 
 PLATFORMS
@@ -19,4 +20,5 @@ DEPENDENCIES
   jeweler (~> 1.5.2)
   rcov
   rmagick
+  ruby-prof
   shoulda

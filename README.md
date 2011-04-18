@@ -44,6 +44,9 @@ File *uploaders/attachement_uploader.rb*:
 * Commit and push until you are happy with your contribution
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
+## Changelog
+2011-04-18: Introduce tests and a profiler script, to profile performance.
+
 ## Copyright
 
 Copyright (c) 2011 Bèr Kessels. See LICENSE.txt for
