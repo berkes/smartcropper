@@ -45,7 +45,8 @@ File *uploaders/attachement_uploader.rb*:
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
 ## Changelog
-2011-04-18: Introduce tests and a profiler script, to profile performance.
+2011-04-18: Limit to N steps, instead of step_size.
+2011-04-16: Introduce tests and a profiler script, to profile performance.
 
 ## Copyright
 
