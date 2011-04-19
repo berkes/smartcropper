@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/berkes/croptoelie"
   gem.license = "MIT"
   gem.summary = %Q{Content aware cropper.}
-  gem.description = %Q{Crops images based on entropy: leaving the most interesting part intact. Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :). Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. It offers two methods, scanning and trimming: with scanning the whole image is placed in an array then evaluated: very slow and memory-gobbling. The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.}
+  gem.description = %Q{Crops images based on entropy: leaving the most interesting part intact. Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :). Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.}
   gem.email = "ber@webschuur.com"
   gem.authors = ["Bèr Kessels"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,

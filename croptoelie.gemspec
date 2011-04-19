@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{croptoelie}
-  s.version = "0.2.0"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bèr Kessels"]
-  s.date = %q{2011-02-28}
-  s.description = %q{Crops images based on entropy: leaving the most interesting part intact. Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :). Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. It offers two methods, scanning and trimming: with scanning the whole image is placed in an array then evaluated: very slow and memory-gobbling. The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.}
+  s.date = %q{2011-04-19}
+  s.description = %q{Crops images based on entropy: leaving the most interesting part intact. Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :). Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.}
   s.email = %q{ber@webschuur.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -30,7 +30,10 @@ Gem::Specification.new do |s|
     "doc/croptoelie_test.rb",
     "doc/histogram.rb",
     "lib/croptoelie.rb",
+    "test/entropyish.png",
+    "test/entropyish.txt",
     "test/helper.rb",
+    "test/profiler.rb",
     "test/test_croptoelie.rb"
   ]
   s.homepage = %q{http://github.com/berkes/croptoelie}
@@ -40,6 +43,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Content aware cropper.}
   s.test_files = [
     "test/helper.rb",
+    "test/profiler.rb",
     "test/test_croptoelie.rb"
   ]
 
