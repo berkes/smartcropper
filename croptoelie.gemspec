@@ -30,7 +30,10 @@ Gem::Specification.new do |s|
     "doc/croptoelie_test.rb",
     "doc/histogram.rb",
     "lib/croptoelie.rb",
+    "test/entropyish.png",
+    "test/entropyish.txt",
     "test/helper.rb",
+    "test/profiler.rb",
     "test/test_croptoelie.rb"
   ]
   s.homepage = %q{http://github.com/berkes/croptoelie}
@@ -40,6 +43,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Content aware cropper.}
   s.test_files = [
     "test/helper.rb",
+    "test/profiler.rb",
     "test/test_croptoelie.rb"
   ]
 
