@@ -9,7 +9,6 @@ class CropToelie
   #  If you want to provide a file by its path use CropToelie.from_file('/path/to/image.png'). 
   def initialize(image)
     @image = image
-    @orig = image
     
     # Hardcoded (but overridable) defaults.
     @steps  = 10
@@ -36,7 +35,7 @@ class CropToelie
   #  smart_crop_by_search().  
   def smart_crop(width, height, method = :by_trim)
     sq = square(width, height, method)
-    return @orig.crop(sq[:left], sq[:top], width, height, true)
+    return @image.crop!(sq[:left], sq[:top], width, height, true)
   end
 
   # Squares an image (with smart_square) and then scales that to width, heigh
@@ -53,7 +52,6 @@ class CropToelie
   # Squares an image by slicing off the least interesting parts. 
   # Usefull for squaring images such as thumbnails. Usefull before scaling.
   def smart_square
-    cropped = @orig  #square images can be returned as-is.
     if @rows != @columns #None-square images must be shaved off.
       if @rows < @columns #landscape
         crop_height = crop_width = @rows
@@ -62,10 +60,10 @@ class CropToelie
       end
 
       sq = square(crop_width, crop_height, :by_trim)
-      cropped = @orig.crop(sq[:left], sq[:top], crop_width, crop_height, true)
+      @image.crop!(sq[:left], sq[:top], crop_width, crop_height, true)
     end
     
-    cropped    
+    @image    
   end
   
   # Finds the most interesting square with size width x height.
