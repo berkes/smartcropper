@@ -3,16 +3,15 @@ class CropToelie
   include Magick
   
   attr_accessor :orig
-  attr_accessor :step_size
+  attr_accessor :steps
   
   # Create a new CropToelie object from a ImageList single image object. 
   #  If you want to provide a file by its path use CropToelie.from_file('/path/to/image.png'). 
   def initialize(image)
     @image = image
-    @orig = image
     
     # Hardcoded (but overridable) defaults.
-    @step_size  = 10
+    @steps  = 10
 
     # Preprocess image.
     @image = @image.quantize
@@ -36,7 +35,7 @@ class CropToelie
   #  smart_crop_by_search().  
   def smart_crop(width, height, method = :by_trim)
     sq = square(width, height, method)
-    return @orig.crop(sq[:left], sq[:top], width, height, true)
+    return @image.crop!(sq[:left], sq[:top], width, height, true)
   end
 
   # Squares an image (with smart_square) and then scales that to width, heigh
@@ -46,14 +45,13 @@ class CropToelie
   #  spots, the much slower :by_search will give better results. It will use
   #  smart_crop_by_search().  
   def smart_crop_and_scale(width, height)
-    cropped = smart_square    
-    return cropped.scale(width, height)
+    smart_square    
+    return @image.scale!(width, height)
   end
   
   # Squares an image by slicing off the least interesting parts. 
   # Usefull for squaring images such as thumbnails. Usefull before scaling.
   def smart_square
-    cropped = @orig  #square images can be returned as-is.
     if @rows != @columns #None-square images must be shaved off.
       if @rows < @columns #landscape
         crop_height = crop_width = @rows
@@ -62,10 +60,10 @@ class CropToelie
       end
 
       sq = square(crop_width, crop_height, :by_trim)
-      cropped = @orig.crop(sq[:left], sq[:top], crop_width, crop_height, true)
+      @image.crop!(sq[:left], sq[:top], crop_width, crop_height, true)
     end
     
-    cropped    
+    @image    
   end
   
   # Finds the most interesting square with size width x height.
@@ -127,10 +125,11 @@ class CropToelie
       left, top = 0, 0
       right, bottom = @columns, @rows
       width, height = right, bottom
+      step_size = step_size(requested_x, requested_y)
 
       # Slice from left and right edges until the correct width is reached.
       while (width > requested_x)
-        slice_width = [(width - requested_x), @step_size].min
+        slice_width = [(width - requested_x), step_size].min
 
         left_entropy  = entropy_slice(@image, left, 0, slice_width, bottom)
         right_entropy = entropy_slice(@image, (right - slice_width), 0, slice_width, bottom)
@@ -147,7 +146,7 @@ class CropToelie
 
       # Slice from top and bottom edges until the correct height is reached.
       while (height > requested_y)
-        slice_height = [(height - @step_size), @step_size].min
+        slice_height = [(height - step_size), step_size].min
         
         top_entropy    = entropy_slice(@image, 0, top, @columns, slice_height)
         bottom_entropy = entropy_slice(@image, 0, (bottom - slice_height), @columns, slice_height)
@@ -183,7 +182,10 @@ class CropToelie
         p = h.to_f / hist_size
         entropy += (p * (Math.log(p)/Math.log(2))) if p != 0
       end
-     
       return entropy * -1
+    end
+    
+    def step_size(requested_x, requested_y)
+      ((([@rows - requested_x, @columns - requested_y].max)/2)/@steps).to_i
     end
 end

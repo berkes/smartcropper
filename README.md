@@ -44,6 +44,14 @@ File *uploaders/attachement_uploader.rb*:
 * Commit and push until you are happy with your contribution
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
+## Changelog
+2011-04-19: Replace crop with crop! avoids copying large chunks of images around.
+2011-04-18: Limit to N steps, instead of step_size.
+2011-04-16: Introduce tests and a profiler script, to profile performance.
+
+## Todo
+Improved algorythm: first @image.scale by F, investigate the entropy on that, most-interesting square by factor F is to-be-cropped area.
+
 ## Copyright
 
 Copyright (c) 2011 Bèr Kessels. See LICENSE.txt for

@@ -6,10 +6,18 @@ GEM
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
+    memprof (0.3.10)
+      rest-client (>= 1.4.2)
+      term-ansicolor
+    mime-types (1.16)
     rake (0.8.7)
     rcov (0.9.9)
+    rest-client (1.6.1)
+      mime-types (>= 1.16)
     rmagick (2.13.1)
+    ruby-prof (0.10.2)
     shoulda (2.11.3)
+    term-ansicolor (1.0.5)
 
 PLATFORMS
   ruby
@@ -17,6 +25,8 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.0.0)
   jeweler (~> 1.5.2)
+  memprof
   rcov
   rmagick
+  ruby-prof
   shoulda
