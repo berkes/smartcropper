@@ -45,8 +45,8 @@ class CropToelie
   #  spots, the much slower :by_search will give better results. It will use
   #  smart_crop_by_search().  
   def smart_crop_and_scale(width, height)
-    cropped = smart_square    
-    return cropped.scale(width, height)
+    smart_square    
+    return @image.scale!(width, height)
   end
   
   # Squares an image by slicing off the least interesting parts. 
