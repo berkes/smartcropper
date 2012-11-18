@@ -39,4 +39,23 @@ class TestCroptoelie < Test::Unit::TestCase
     img = img.smart_square
     assert_equal(img.rows, img.columns)
   end
+
+
+  ###########################################################################
+  #                   Images reported to fail by issue #5                   #
+  ###########################################################################
+  [:smart_crop, :smart_crop_and_scale, :smart_square].each do |method|
+    full_path = File.join File.dirname(__FILE__), "fixtures", "errors"
+    Dir.open(full_path).select{|f| !File.directory?(f)}.each do |file|
+
+      should "'#{method}' not fail on reported-as-broken image '#{file}'" do
+          realpath = File.realpath(File.join full_path, file)
+
+          img = CropToelie.new(Magick::ImageList.new(realpath).last)
+          img = img.smart_crop(100, 100)
+          size = [img.rows, img.columns]
+          assert_equal(size, [100, 100])
+      end
+    end
+  end
 end
