@@ -19,21 +19,21 @@ class TestCroptoelie < Test::Unit::TestCase
        CropToelie.new(File.join(File.expand_path(File.dirname(__FILE__)), "fixtures","entropyish.txt"))
     end
   end
-  
+
   should "crop to 100x100 without scaling with smart_crop" do
     img = CropToelie.new(@image)
     img = img.smart_crop(100, 100)
     size = [img.rows, img.columns]
     assert_equal(size, [100, 100])
   end
-  
+
   should "crop to 100x100 with scaling with smart_crop_and_scale" do
     img = CropToelie.new(@image)
     img = img.smart_crop_and_scale(100, 100)
     size = [img.rows, img.columns]
     assert_equal(size, [100, 100])
   end
-  
+
   should "square image without scaling" do
     img = CropToelie.new(@image)
     img = img.smart_square
