@@ -2,7 +2,7 @@ require 'helper'
 
 class TestCroptoelie < Test::Unit::TestCase
   def setup
-    @filename = File.join(File.expand_path(File.dirname(__FILE__)), "entropyish.png")
+    @filename = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "entropyish.png")
     @image    = Magick::ImageList.new(@filename).last
   end
   should "initialize a croptoelie image from an ImageList item" do
@@ -16,7 +16,7 @@ class TestCroptoelie < Test::Unit::TestCase
 
   should "fail on creating a croptoelie image from a textfile" do
     assert_raise Magick::ImageMagickError, NoMethodError do
-       CropToelie.new(File.join(File.expand_path(File.dirname(__FILE__)), "entropyish.txt"))
+       CropToelie.new(File.join(File.expand_path(File.dirname(__FILE__)), "fixtures","entropyish.txt"))
     end
   end
   
