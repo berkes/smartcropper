@@ -77,38 +77,41 @@ class CropToelie
       width, height = right, bottom
       step_size = step_size(requested_x, requested_y)
 
-      # Slice from left and right edges until the correct width is reached.
-      while (width > requested_x)
-        slice_width = [(width - requested_x), step_size].min
+      # Avoid attempts to slice less then one pixel.
+      if step_size > 0
+        # Slice from left and right edges until the correct width is reached.
+        while (width > requested_x)
+          slice_width = [(width - requested_x), step_size].min
 
-        left_entropy  = entropy_slice(@image, left, 0, slice_width, bottom)
-        right_entropy = entropy_slice(@image, (right - slice_width), 0, slice_width, bottom)
+          left_entropy  = entropy_slice(@image, left, 0, slice_width, bottom)
+          right_entropy = entropy_slice(@image, (right - slice_width), 0, slice_width, bottom)
 
-        #remove the slice with the least entropy
-        if left_entropy < right_entropy
-          left += slice_width
-        else
-          right -= slice_width
+          #remove the slice with the least entropy
+          if left_entropy < right_entropy
+            left += slice_width
+          else
+            right -= slice_width
+          end
+
+          width = (right - left)
         end
 
-        width = (right - left)
-      end
+        # Slice from top and bottom edges until the correct height is reached.
+        while (height > requested_y)
+          slice_height = [(height - step_size), step_size].min
 
-      # Slice from top and bottom edges until the correct height is reached.
-      while (height > requested_y)
-        slice_height = [(height - step_size), step_size].min
+          top_entropy    = entropy_slice(@image, 0, top, @columns, slice_height)
+          bottom_entropy = entropy_slice(@image, 0, (bottom - slice_height), @columns, slice_height)
 
-        top_entropy    = entropy_slice(@image, 0, top, @columns, slice_height)
-        bottom_entropy = entropy_slice(@image, 0, (bottom - slice_height), @columns, slice_height)
+          #remove the slice with the least entropy
+          if top_entropy < bottom_entropy
+            top += slice_height
+          else
+            bottom -= slice_height
+          end
 
-        #remove the slice with the least entropy
-        if top_entropy < bottom_entropy
-          top += slice_height
-        else
-          bottom -= slice_height
+          height = (bottom - top)
         end
-
-        height = (bottom - top)
       end
 
       square = {:left => left, :top => top, :right => right, :bottom => bottom}
