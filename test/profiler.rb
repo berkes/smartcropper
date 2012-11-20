@@ -1,7 +1,7 @@
 require 'ruby-prof'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'croptoelie'
+require 'smartcropper'
 
 tests = {
   :smart_crop_by_trim => {:method => :smart_crop, :params => [100, 100]}, 
@@ -15,7 +15,7 @@ tests = {
     
     2.times do |i|
 #      result = RubyProf.profile do
-        img = CropToelie.from_file(filename)
+        img = SmartCropper.from_file(filename)
         img.send(test[:method], *test[:params])
         img = nil
 #      end
