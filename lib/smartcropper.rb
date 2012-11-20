@@ -1,12 +1,12 @@
 require 'RMagick'
-class CropToelie
+class SmartCropper
   include Magick
 
   attr_accessor :orig
   attr_accessor :steps
 
-  # Create a new CropToelie object from a ImageList single image object.
-  #  If you want to provide a file by its path use CropToelie.from_file('/path/to/image.png').
+  # Create a new SmartCropper object from a ImageList single image object.
+  #  If you want to provide a file by its path use SmartCropper.from_file('/path/to/image.png').
   def initialize(image)
     @image = image
 
@@ -19,14 +19,12 @@ class CropToelie
     # Prepare some often-used internal variables.
     @rows = @image.rows
     @columns = @image.columns
-
-    warn "DEPRECATED: 'croptoelie' gem is replaced by 'smartcropper'. http://github.com/berkes/smartcropper"
   end
 
-  # Open create a croptoelie from a file on disk.
+  # Open create a smartcropper from a file on disk.
   def self.from_file(image_path)
     image = ImageList.new(image_path).last
-    return CropToelie.new(image)
+    return SmartCropper.new(image)
   end
 
   # Crops an image to width x height

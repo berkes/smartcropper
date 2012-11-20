@@ -14,9 +14,9 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "croptoelie"
-  gem.homepage = "http://github.com/berkes/croptoelie"
-  gem.license = "MIT"
+  gem.name = "smartcropper"
+  gem.homepage = "http://github.com/berkes/smartcropper"
+  gem.license = "GPL"
   gem.summary = %Q{Content aware cropper.}
   gem.description = %Q{Crops images based on entropy: leaving the most interesting part intact. Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :). Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.}
   gem.email = "ber@webschuur.com"
@@ -50,7 +50,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "croptoelie #{version}"
+  rdoc.title = "smartcropper #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

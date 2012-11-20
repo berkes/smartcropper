@@ -4,13 +4,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{croptoelie}
+  s.name = %q{smartcropper}
   s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bèr Kessels"]
   s.date = %q{2011-04-19}
-  s.description = %q{WARNING: replaced by `smartcropper`, please use `smartcropper` as drop-in replacement for this. Crops images based on entropy: leaving the most interesting part intact. Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :). Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.}
+  s.description = %q{Crops images based on entropy: leaving the most interesting part intact. Usefull for automatic cropping or resizing of images. }
   s.email = %q{ber@webschuur.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -25,26 +25,19 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
-    "croptoelie.gemspec",
-    "doc/composite.png",
-    "doc/croptoelie_test.rb",
-    "doc/histogram.rb",
-    "lib/croptoelie.rb",
-    "test/entropyish.png",
-    "test/entropyish.txt",
-    "test/helper.rb",
-    "test/profiler.rb",
-    "test/test_croptoelie.rb"
+    "smartcropper.gemspec",
+    "lib/smartcropper.rb",
   ]
-  s.homepage = %q{http://github.com/berkes/croptoelie}
-  s.licenses = ["MIT"]
+  s.homepage = %q{http://github.com/berkes/smartcropper}
+  s.licenses = ["GPL"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.5.2}
-  s.summary = %q{WARNING: replaced by `smartcropper` gem. Content aware cropper.}
+  s.summary = %q{Content aware image cropping in Ruby and Carrierwave}
   s.test_files = [
     "test/helper.rb",
     "test/profiler.rb",
-    "test/test_croptoelie.rb"
+    "test/test_croptoelie.rb",
+    "test/fixtures/*"
   ]
 
   if s.respond_to? :specification_version then
