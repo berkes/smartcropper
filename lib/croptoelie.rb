@@ -19,6 +19,8 @@ class CropToelie
     # Prepare some often-used internal variables.
     @rows = @image.rows
     @columns = @image.columns
+
+    warn "DEPRECATED: 'croptoelie' gem is replaced by 'smartcropper'. http://github.com/berkes/smartcropper"
   end
 
   # Open create a croptoelie from a file on disk.
