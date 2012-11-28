@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{smartcropper}
-  s.version = "0.6.0"
+  s.version = "0.6.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bèr Kessels"]
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
     "smartcropper.gemspec",
     "lib/smartcropper.rb",
   ]
-  s.homepage = %q{http://github.com/berkes/smartcropper}
+  s.homepage = %q{http://berk.es/smartcropper}
   s.licenses = ["GPL"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.5.2}
