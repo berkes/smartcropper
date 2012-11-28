@@ -1,4 +1,4 @@
-# croptoelie
+# smartcropper
 
 Content aware cropping.
 
