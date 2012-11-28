@@ -68,7 +68,7 @@ end
 
 <h2>Examples</h2>
 
-Below some examples, generated with <a href="https://gist.github.com/4161796">some code</a>.
+Below some examples, generated with <a href="https://gist.github.com/4161796">this script</a>.
 
 <div class="group">
        <figure>
@@ -139,6 +139,35 @@ Below some examples, generated with <a href="https://gist.github.com/4161796">so
         <img src="banksy_smart_square.jpg" alt="smart_square" />
        </figure></div>
 <br class="clear"/>
+
+<h2>Workings</h2>
+<p>Smartcropper grabs a slice from both outer sides of the image. It compares the entropy of the slices and then removes the slice with the lowest entropy. More differentiating pixels (colors, shadows, depth) indicates a more interesting part of the image; a higher entropy.
+<figure>
+  <figcaption>Vertical map of the entropy</figcaption>
+  <img src="ts_entropy_map_vertical.jpg" alt="entropy map vertical" />
+</figure>
+</p>
+<p>It then repeats that for the top-and bottom
+<figure>
+  <figcaption>Horizontal map of the entropy</figcaption>
+  <img src="ts_entropy_map_horizontal.jpg" alt="entropy map horizontal" />
+</figure>
+</p>
+<p>As you can see, entropy of a slice is not a perfect measurement of the "interestingness". Some slices have a high entropy, not because they contain the focus of the image, but some other artifact, like a tree, a logo or a lot of reflecting water.</p>
+
+<p>Attempts to scan the image, rather then shaving it, have been made. But the result is not much better, yet the performance is hundreds times worse.
+<figure>
+  <figcaption>Mapping the entropy</figcaption>
+  <img src="ts_entropy_map.jpg" alt="entropy map" />
+</figure>
+</p>
+
+<p>
+For now, shaving suffices. But I want to re-investigate the scanning-method, combined with some simple statistics to determine hotspots in the image. Then the "hotness" and size of these hotspots can be used to determine the boundries of the "interesting part".<br />
+The biggest hurdle, then, is to reduce memory-usage and amount of iterations; since the value of each pixel in an image must be loaded into memory and looped over, multiple times, you can image the performance for large-ish images.
+
+</p>
+
       </section>
     </div>
     <footer>
