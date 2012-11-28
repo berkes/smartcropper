@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Smartcropper by berkes</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Smartcropper</h1>
+        <p>Content aware cropping for Ruby and Carrierwave</p>
+        <p class="view"><a href="https://github.com/berkes/smartcropper">View the Project on GitHub <small>berkes/smartcropper</small></a></p>
+        <ul>
+          <li><a href="https://github.com/berkes/smartcropper/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/berkes/smartcropper/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/berkes/smartcropper">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Smartcropper</h1>
+
+<p>Content aware cropping.</p>
+
+<p>Crops images based on entropy: leaving the most interesting part intact.</p>
+
+<p>Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :).</p>
+
+<p>Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. 
+The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.</p>
+
+<h2>Usage</h2>
+
+<p>Use it in <a href="https://github.com/jnicklas/carrierwave">carrierwave</a>, in a custom <code>manipulate!</code> block. For example, carrierwave in a Rails project:</p>
+
+<p>File <em>uploaders/attachement_uploader.rb</em>: </p>
+
+<pre><code>def smart_crop_and_scale(width, height)
+  manipulate! do |img|
+    img = CropToelie.new(img)
+    img = img.smart_crop_and_scale(width, height)
+    img = yield(img) if block_given?
+    img
+  end
+end
+
+# Create different versions of your uploaded files:
+version :thumb do
+  process :smart_crop_and_scale =&gt; [80, 80]
+end
+</code></pre>
+
+<h2>Contributing to croptoelie</h2>
+
+<ul>
+<li>This is one of my first more complex Ruby gems. So any help in general improvement is welcome. If you read the code and thing "OMG, what was he thinking, the answer is probably 'I wasn't'". Feel free to tell me so.</li>
+<li>RMagick is not the cleanest and leanest of all image-manipulation libraries in Ruby, but it was the only one where I found enough documentation and that had the features I needed (such as histograms). If you have better ideas, feel free to tell me them.</li>
+<li>I only use this gem with <a href="https://github.com/jnicklas/carrierwave">carrierwave</a>, so other implementations are probably not well done. If you want to use it in any other project, please tell me what I should change to make your life easier. </li>
+<li><p>The integration in carrierwave should be simpler. I would love to be able to say <code>process :smart_crop_and_scale</code> instead of having to use the smartcropper as class in a custom carrierwave <code>manipulate!</code> block. My knowledge of Ruby, Carrierwave and how to get this integration done properly is limited, if you have a patch, or a suggestion, that would be great!</p></li>
+<li><p>Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet</p></li>
+<li><p>Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it</p></li>
+<li><p>Fork the project</p></li>
+<li><p>Start a feature/bugfix branch</p></li>
+<li><p>Commit and push until you are happy with your contribution</p></li>
+<li><p>Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.</p></li>
+</ul><h2>Changelog</h2>
+
+<p>2011-04-19: Replace crop with crop! avoids copying large chunks of images around.
+2011-04-18: Limit to N steps, instead of step_size.
+2011-04-16: Introduce tests and a profiler script, to profile performance.</p>
+
+<h2>Todo</h2>
+
+<p>Improved algorythm: first @image.scale by F, investigate the entropy on that, most-interesting square by factor F is to-be-cropped area.</p>
+
+<h2>Copyright</h2>
+
+<p>Copyright (c) 2011 Bèr Kessels. See LICENSE.txt for
+further details.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/berkes">berkes</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
