@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
     "smartcropper.gemspec",
     "lib/smartcropper.rb",
   ]
-  s.homepage = %q{http://github.com/berkes/smartcropper}
+  s.homepage = %q{http://berk.es/smartcropper}
   s.licenses = ["GPL"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.5.2}
