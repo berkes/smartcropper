@@ -28,9 +28,6 @@
       </header>
       <section>
         <h1>Smartcropper</h1>
-
-<p>Content aware cropping.</p>
-
 <p>Crops images based on entropy: leaving the most interesting part intact.</p>
 
 <p>Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. 
@@ -38,7 +35,7 @@ The trimming simply chops off te edge that is least interesting, and continues d
 
 <h2>Usage</h2>
 
-<p>Use it in <a href="https://github.com/jnicklas/carrierwave">carrierwave</a>, in a custom <code>manipulate!</code> block. For example, carrierwave in a Rails project:</p>
+<p>With <a href="https://github.com/jnicklas/carrierwave">carrierwave</a>, you use it in a custom <code>manipulate!</code> block. For example, carrierwave in a Rails project:</p>
 
 <p>File <em>uploaders/attachement_uploader.rb</em>: </p>
 
@@ -65,6 +62,17 @@ version :cover do
   process :smart_square
 end
 </code></pre>
+
+<p>With custom code, you simply create an instance of <em>SmartCropper</em></p>
+
+<pre><code>
+image = Magick::ImageList("carice.jpg")
+SmartCropper.new(image).smart_square.write("carice_square.jpg")
+
+# Or, simpler
+SmartCropper.from_file("carice.jpg").smart_square.write("carice_square.jpg")
+</code></pre>
+
 
 <h2>Examples</h2>
 
