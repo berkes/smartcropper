@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Smartcropper by berkes</title>
+    <title>Smartcropper for Ruby</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -17,7 +17,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Smartcropper</h1>
+        <h1>Smartcropper for Ruby</h1>
         <p>Content aware cropping for Ruby and Carrierwave</p>
         <p class="view"><a href="https://github.com/berkes/smartcropper">View the Project on GitHub <small>berkes/smartcropper</small></a></p>
         <ul>
@@ -32,8 +32,6 @@
 <p>Content aware cropping.</p>
 
 <p>Crops images based on entropy: leaving the most interesting part intact.</p>
-
-<p>Don't expect this to be a replacement for human cropping, it is an algorythm and not an extremely smart one at that :).</p>
 
 <p>Best results achieved in combination with scaling: the cropping is then only used to square the image, cutting off the least interesting part. 
 The trimming simply chops off te edge that is least interesting, and continues doing so, untill it reached the requested size.</p>
@@ -54,38 +52,93 @@ The trimming simply chops off te edge that is least interesting, and continues d
 end
 
 # Create different versions of your uploaded files:
+# A square and tiny thumbnail
 version :thumb do
   process :smart_crop_and_scale =&gt; [80, 80]
 end
+# A large version, only cropped
+version :preview do
+  processs :crop =&gt; [200,400]
+end
+# A square version
+version :cover do
+  process :smart_square
+end
 </code></pre>
 
-<h2>Contributing to croptoelie</h2>
+<h2>Examples</h2>
 
-<ul>
-<li>This is one of my first more complex Ruby gems. So any help in general improvement is welcome. If you read the code and thing "OMG, what was he thinking, the answer is probably 'I wasn't'". Feel free to tell me so.</li>
-<li>RMagick is not the cleanest and leanest of all image-manipulation libraries in Ruby, but it was the only one where I found enough documentation and that had the features I needed (such as histograms). If you have better ideas, feel free to tell me them.</li>
-<li>I only use this gem with <a href="https://github.com/jnicklas/carrierwave">carrierwave</a>, so other implementations are probably not well done. If you want to use it in any other project, please tell me what I should change to make your life easier. </li>
-<li><p>The integration in carrierwave should be simpler. I would love to be able to say <code>process :smart_crop_and_scale</code> instead of having to use the smartcropper as class in a custom carrierwave <code>manipulate!</code> block. My knowledge of Ruby, Carrierwave and how to get this integration done properly is limited, if you have a patch, or a suggestion, that would be great!</p></li>
-<li><p>Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet</p></li>
-<li><p>Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it</p></li>
-<li><p>Fork the project</p></li>
-<li><p>Start a feature/bugfix branch</p></li>
-<li><p>Commit and push until you are happy with your contribution</p></li>
-<li><p>Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.</p></li>
-</ul><h2>Changelog</h2>
+Below some examples, generated with <a href="https://gist.github.com/4161796">some code</a>.
 
-<p>2011-04-19: Replace crop with crop! avoids copying large chunks of images around.
-2011-04-18: Limit to N steps, instead of step_size.
-2011-04-16: Introduce tests and a profiler script, to profile performance.</p>
-
-<h2>Todo</h2>
-
-<p>Improved algorythm: first @image.scale by F, investigate the entropy on that, most-interesting square by factor F is to-be-cropped area.</p>
-
-<h2>Copyright</h2>
-
-<p>Copyright (c) 2011 Bèr Kessels. See LICENSE.txt for
-further details.</p>
+<div class="group">
+       <figure>
+        <figcaption>original</figcaption>
+        <img src="ts_orig.jpg" alt="original" />
+       </figure>
+       <figure>
+        <figcaption>smart_crop 400, 300</figcaption>
+        <img src="ts_smart_crop.jpg" alt="smart_crop 400, 300" />
+       </figure>
+       <figure>
+        <figcaption>smart_crop_and_scale 400, 300</figcaption>
+        <img src="ts_smart_crop_and_scale.jpg" alt="smart_crop_and_scale 400, 300" />
+       </figure>
+       <figure>
+        <figcaption>smart_square</figcaption>
+        <img src="ts_smart_square.jpg" alt="smart_square" />
+       </figure></div>
+<div class="group">
+       <figure>
+        <figcaption>original</figcaption>
+        <img src="sikh_orig.jpg" alt="original" />
+       </figure>
+       <figure>
+        <figcaption>smart_crop 400, 300</figcaption>
+        <img src="sikh_smart_crop.jpg" alt="smart_crop 400, 300" />
+       </figure>
+       <figure>
+        <figcaption>smart_crop_and_scale 400, 300</figcaption>
+        <img src="sikh_smart_crop_and_scale.jpg" alt="smart_crop_and_scale 400, 300" />
+       </figure>
+       <figure>
+        <figcaption>smart_square</figcaption>
+        <img src="sikh_smart_square.jpg" alt="smart_square" />
+       </figure></div>
+<div class="group">
+       <figure>
+        <figcaption>original</figcaption>
+        <img src="carice_orig.jpg" alt="original" />
+       </figure>
+       <figure>
+        <figcaption>smart_crop 400, 300</figcaption>
+        <img src="carice_smart_crop.jpg" alt="smart_crop 400, 300" />
+       </figure>
+       <figure>
+        <figcaption>smart_crop_and_scale 400, 300</figcaption>
+        <img src="carice_smart_crop_and_scale.jpg" alt="smart_crop_and_scale 400, 300" />
+       </figure>
+       <figure>
+        <figcaption>smart_square</figcaption>
+        <img src="carice_smart_square.jpg" alt="smart_square" />
+       </figure></div>
+<div class="group">
+       <figure>
+        <figcaption>original</figcaption>
+        <img src="banksy_orig.jpg" alt="original" />
+       </figure>
+       <figure>
+        <figcaption>smart_crop 400, 300</figcaption>
+        <img src="banksy_smart_crop.jpg" alt="smart_crop 400, 300" />
+       </figure>
+       <figure>
+        <figcaption>smart_crop_and_scale 400, 300</figcaption>
+        <img src="banksy_smart_crop_and_scale.jpg" alt="smart_crop_and_scale 400, 300" />
+       </figure>
+       <figure>
+        <figcaption>smart_square</figcaption>
+        <img src="banksy_smart_square.jpg" alt="smart_square" />
+       </figure></div>
+<br class="clear"/>
       </section>
     </div>
     <footer>
