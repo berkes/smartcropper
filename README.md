@@ -48,8 +48,12 @@ File *uploaders/attachement_uploader.rb*:
 2011-04-18: Limit to N steps, instead of step_size.
 2011-04-16: Introduce tests and a profiler script, to profile performance.
 
-## Todo
-Improved algorythm: first @image.scale by F, investigate the entropy on that, most-interesting square by factor F is to-be-cropped area.
+## Roadmap
+
+1. Refactoring: It must be cleaned up. There is a lot of smelly code, fat methods and DRY.
+1. Performance: I want to make it smarter when cropping (really) large images.
+1. Improve slicing. The results are okay-ish when merely squaring images, but lack when you cut tiny areas from a large image.
+1. Release 1.0.0
 
 ## Copyright
 
