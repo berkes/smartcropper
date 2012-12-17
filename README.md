@@ -17,7 +17,7 @@ File *uploaders/attachement_uploader.rb*:
 
     def smart_crop_and_scale(width, height)
       manipulate! do |img|
-        img = CropToelie.new(img)
+        img = SmartCropper.new(img)
         img = img.smart_crop_and_scale(width, height)
         img = yield(img) if block_given?
         img
