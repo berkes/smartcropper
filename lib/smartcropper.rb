@@ -14,7 +14,7 @@ class SmartCropper
     @steps  = 10
 
     # Preprocess image.
-    @image = @image.quantize
+    @quantized_image = @image.quantize
 
     # Prepare some often-used internal variables.
     @rows = @image.rows
@@ -83,8 +83,8 @@ class SmartCropper
         while (width > requested_x)
           slice_width = [(width - requested_x), step_size].min
 
-          left_entropy  = entropy_slice(@image, left, 0, slice_width, bottom)
-          right_entropy = entropy_slice(@image, (right - slice_width), 0, slice_width, bottom)
+          left_entropy  = entropy_slice(@quantized_image, left, 0, slice_width, bottom)
+          right_entropy = entropy_slice(@quantized_image, (right - slice_width), 0, slice_width, bottom)
 
           #remove the slice with the least entropy
           if left_entropy < right_entropy
@@ -100,8 +100,8 @@ class SmartCropper
         while (height > requested_y)
           slice_height = [(height - step_size), step_size].min
 
-          top_entropy    = entropy_slice(@image, 0, top, @columns, slice_height)
-          bottom_entropy = entropy_slice(@image, 0, (bottom - slice_height), @columns, slice_height)
+          top_entropy    = entropy_slice(@quantized_image, 0, top, @columns, slice_height)
+          bottom_entropy = entropy_slice(@quantized_image, 0, (bottom - slice_height), @columns, slice_height)
 
           #remove the slice with the least entropy
           if top_entropy < bottom_entropy
