@@ -2,7 +2,7 @@ require 'RMagick'
 class SmartCropper
   include Magick
 
-  attr_accessor :orig
+  attr_accessor :image
   attr_accessor :steps
 
   # Create a new SmartCropper object from a ImageList single image object.

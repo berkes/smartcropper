@@ -59,6 +59,12 @@ class TestSmartcropper < Test::Unit::TestCase
     assert_equal([19, 19], size)
   end
 
+  should "return original image, not quantized" do
+    img = SmartCropper.new(@image)
+    assert_equal(img.image, @image)
+  end
+
+
   ###########################################################################
   #                   Images reported to fail by issue #5                   #
   ###########################################################################
