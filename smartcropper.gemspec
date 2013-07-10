@@ -17,8 +17,6 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
-    ".document",
-    ".rvmrc",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -42,6 +40,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency(%q<rmagick>, ["> 2.11.0"])
 
+  s.add_development_dependency('rake', [">= 0"])
   s.add_development_dependency('rspec', [">= 0"])
   s.add_development_dependency('shoulda', [">= 0"])
 end
