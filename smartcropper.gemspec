@@ -31,13 +31,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.5.2}
   s.summary = %q{Content aware image cropping in Ruby and Carrierwave}
-  s.test_files = [
-    "test/helper.rb",
-    "test/profiler.rb",
-    "test/test_croptoelie.rb",
-    "test/fixtures/*"
-  ]
-
+  s.test_files = `git ls-files test`.split("\n")
   s.add_dependency(%q<rmagick>, ["> 2.11.0"])
 
   s.add_development_dependency('rake', [">= 0"])
