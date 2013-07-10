@@ -40,31 +40,8 @@ Gem::Specification.new do |s|
     "test/fixtures/*"
   ]
 
-  if s.respond_to? :specification_version then
-    s.specification_version = 3
+  s.add_dependency(%q<rmagick>, ["> 2.11.0"])
 
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rmagick>, [">= 0"])
-      s.add_development_dependency(%q<shoulda>, [">= 0"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
-      s.add_runtime_dependency(%q<rmagick>, ["> 2.11.0"])
-    else
-      s.add_dependency(%q<rmagick>, [">= 0"])
-      s.add_dependency(%q<shoulda>, [">= 0"])
-      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_dependency(%q<rcov>, [">= 0"])
-      s.add_dependency(%q<rmagick>, ["> 2.11.0"])
-    end
-  else
-    s.add_dependency(%q<rmagick>, [">= 0"])
-    s.add_dependency(%q<shoulda>, [">= 0"])
-    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
-    s.add_dependency(%q<rcov>, [">= 0"])
-    s.add_dependency(%q<rmagick>, ["> 2.11.0"])
-  end
+  s.add_development_dependency('rspec', [">= 0"])
+  s.add_development_dependency('shoulda', [">= 0"])
 end
-
