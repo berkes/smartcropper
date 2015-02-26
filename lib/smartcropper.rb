@@ -110,6 +110,7 @@ class SmartCropper
             bottom -= slice_height
           end
 
+          break if slice_height == step_size
           height = (bottom - top)
         end
       end
