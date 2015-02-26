@@ -14,6 +14,7 @@ class TestSmartcropper < Test::Unit::TestCase
     img = SmartCropper.new(@image)
     assert_equal(img.class, SmartCropper)
   end
+
   should "create a smartcropper from an imagefile" do
     img = SmartCropper.from_file(@filename)
     assert_equal(img.class, SmartCropper)
@@ -64,6 +65,19 @@ class TestSmartcropper < Test::Unit::TestCase
     assert_equal(img.image, @image)
   end
 
+  should "not be stuck" do
+    @filename = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "small1.png")
+    @image    = Magick::ImageList.new(@filename).last
+    img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
+    size = [img.rows, img.columns]
+    assert_equal([50, 1], size)
+
+    @filename = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "small2.png")
+    @image    = Magick::ImageList.new(@filename).last
+    img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
+    size = [img.rows, img.columns]
+    assert_equal([50, 1], size)
+  end
 
   ###########################################################################
   #                   Images reported to fail by issue #5                   #
