@@ -2,11 +2,11 @@ require 'helper'
 
 class TestSmartcropper < Test::Unit::TestCase
   def setup
-    @filename = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "entropyish.png")
-    @image    = Magick::ImageList.new(@filename).last
+    @filename = fixture_path.join("entropyish.png")
+    @image = Magick::ImageList.new(@filename).last
 
     @twenty_twenty = Magick::ImageList.new(
-      File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "20x20.png")
+      fixture_path.join("20x20.png")
     ).last
   end
 
@@ -22,7 +22,7 @@ class TestSmartcropper < Test::Unit::TestCase
 
   should "fail on creating a smartcropper image from a textfile" do
     assert_raise Magick::ImageMagickError, NoMethodError do
-       SmartCropper.new(File.join(File.expand_path(File.dirname(__FILE__)), "fixtures","entropyish.txt"))
+      SmartCropper.new(fixture_path.join("entropyish.txt"))
     end
   end
 
@@ -70,7 +70,7 @@ class TestSmartcropper < Test::Unit::TestCase
   ###########################################################################
   should "handle 1px wide images" do
     @filename = fixture_path.join("small1.png")
-    @image    = Magick::ImageList.new(@filename).last
+    @image = Magick::ImageList.new(@filename).last
     img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
     size = [img.rows, img.columns]
     assert_equal([50, 1], size)
@@ -78,7 +78,7 @@ class TestSmartcropper < Test::Unit::TestCase
 
   should "handle 5px wide images" do
     @filename = fixture_path.join("small2.png")
-    @image    = Magick::ImageList.new(@filename).last
+    @image = Magick::ImageList.new(@filename).last
     img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
     size = [img.rows, img.columns]
     assert_equal([50, 1], size)
@@ -91,7 +91,7 @@ class TestSmartcropper < Test::Unit::TestCase
     full_path = File.join File.dirname(__FILE__), "fixtures", "errors"
     Dir.open(full_path).select{|f| !File.directory?(f)}.each do |file|
 
-      should "'not fail on reported-as-broken image '#{file}' with '#{method}'" do
+      should "handle reported-as-broken image '#{file}' with '#{method}'" do
           realpath = File.realpath(File.join full_path, file)
 
           img = SmartCropper.new(Magick::ImageList.new(realpath).last)
