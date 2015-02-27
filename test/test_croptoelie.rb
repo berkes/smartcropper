@@ -14,6 +14,7 @@ class TestSmartcropper < Test::Unit::TestCase
     img = SmartCropper.new(@image)
     assert_equal(img.class, SmartCropper)
   end
+
   should "create a smartcropper from an imagefile" do
     img = SmartCropper.from_file(@filename)
     assert_equal(img.class, SmartCropper)
@@ -64,6 +65,24 @@ class TestSmartcropper < Test::Unit::TestCase
     assert_equal(img.image, @image)
   end
 
+  ###########################################################################
+  #            Stuck in a loop when image is too small to slice             #
+  ###########################################################################
+  should "handle 1px wide images" do
+    @filename = fixture_path.join("small1.png")
+    @image    = Magick::ImageList.new(@filename).last
+    img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
+    size = [img.rows, img.columns]
+    assert_equal([50, 1], size)
+  end
+
+  should "handle 5px wide images" do
+    @filename = fixture_path.join("small2.png")
+    @image    = Magick::ImageList.new(@filename).last
+    img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
+    size = [img.rows, img.columns]
+    assert_equal([50, 1], size)
+  end
 
   ###########################################################################
   #                   Images reported to fail by issue #5                   #
