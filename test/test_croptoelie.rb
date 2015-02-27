@@ -91,7 +91,7 @@ class TestSmartcropper < Test::Unit::TestCase
     full_path = File.join File.dirname(__FILE__), "fixtures", "errors"
     Dir.open(full_path).select{|f| !File.directory?(f)}.each do |file|
 
-      should "'not fail on reported-as-broken image '#{file}' with '#{method}'" do
+      should "handle reported-as-broken image '#{file}' with '#{method}'" do
           realpath = File.realpath(File.join full_path, file)
 
           img = SmartCropper.new(Magick::ImageList.new(realpath).last)
