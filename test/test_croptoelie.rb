@@ -2,11 +2,11 @@ require 'helper'
 
 class TestSmartcropper < Test::Unit::TestCase
   def setup
-    @filename = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "entropyish.png")
+    @filename = fixture_path.join("entropyish.png")
     @image = Magick::ImageList.new(@filename).last
 
     @twenty_twenty = Magick::ImageList.new(
-      File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "20x20.png")
+      fixture_path.join("20x20.png")
     ).last
   end
 
@@ -22,7 +22,7 @@ class TestSmartcropper < Test::Unit::TestCase
 
   should "fail on creating a smartcropper image from a textfile" do
     assert_raise Magick::ImageMagickError, NoMethodError do
-       SmartCropper.new(File.join(File.expand_path(File.dirname(__FILE__)), "fixtures","entropyish.txt"))
+       SmartCropper.new(fixture_path.join("entropyish.txt"))
     end
   end
 
