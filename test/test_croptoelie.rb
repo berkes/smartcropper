@@ -65,14 +65,19 @@ class TestSmartcropper < Test::Unit::TestCase
     assert_equal(img.image, @image)
   end
 
-  should "not be stuck" do
-    @filename = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "small1.png")
+  ###########################################################################
+  #            Stuck in a loop when image is too small to slice             #
+  ###########################################################################
+  should "handle 1px wide images" do
+    @filename = fixture_path.join("small1.png")
     @image    = Magick::ImageList.new(@filename).last
     img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
     size = [img.rows, img.columns]
     assert_equal([50, 1], size)
+  end
 
-    @filename = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "small2.png")
+  should "handle 5px wide images" do
+    @filename = fixture_path.join("small2.png")
     @image    = Magick::ImageList.new(@filename).last
     img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
     size = [img.rows, img.columns]
