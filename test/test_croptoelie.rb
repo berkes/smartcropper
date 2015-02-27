@@ -3,7 +3,7 @@ require 'helper'
 class TestSmartcropper < Test::Unit::TestCase
   def setup
     @filename = File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "entropyish.png")
-    @image    = Magick::ImageList.new(@filename).last
+    @image = Magick::ImageList.new(@filename).last
 
     @twenty_twenty = Magick::ImageList.new(
       File.join(File.expand_path(File.dirname(__FILE__)), "fixtures", "20x20.png")
@@ -70,7 +70,7 @@ class TestSmartcropper < Test::Unit::TestCase
   ###########################################################################
   should "handle 1px wide images" do
     @filename = fixture_path.join("small1.png")
-    @image    = Magick::ImageList.new(@filename).last
+    @image = Magick::ImageList.new(@filename).last
     img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
     size = [img.rows, img.columns]
     assert_equal([50, 1], size)
@@ -78,7 +78,7 @@ class TestSmartcropper < Test::Unit::TestCase
 
   should "handle 5px wide images" do
     @filename = fixture_path.join("small2.png")
-    @image    = Magick::ImageList.new(@filename).last
+    @image = Magick::ImageList.new(@filename).last
     img = SmartCropper.new(@image).smart_crop_and_scale(1, 50)
     size = [img.rows, img.columns]
     assert_equal([50, 1], size)
