@@ -22,7 +22,7 @@ class TestSmartcropper < Test::Unit::TestCase
 
   should "fail on creating a smartcropper image from a textfile" do
     assert_raise Magick::ImageMagickError, NoMethodError do
-       SmartCropper.new(fixture_path.join("entropyish.txt"))
+      SmartCropper.new(fixture_path.join("entropyish.txt"))
     end
   end
 
