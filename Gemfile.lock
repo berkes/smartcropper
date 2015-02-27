@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    smartcropper (0.7.0)
+    smartcropper (0.7.1)
       rmagick (> 2.11.0)
 
 GEM
