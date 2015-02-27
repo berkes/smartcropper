@@ -13,5 +13,12 @@ require 'shoulda'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
+
+class Test::Unit::TestCase
+  def fixture_path
+    Pathname.new(File.join(File.expand_path(File.dirname(__FILE__)), "fixtures"))
+  end
+end
+
 require 'smartcropper'
 
